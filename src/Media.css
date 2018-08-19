@@ -1,0 +1,84 @@
+.player-card-media{
+  width: 60vw;
+  margin: 10px 20vw 0 20vw !important;
+}
+.player-card-social-media__content{
+  background-color: rgb(238,238,238);
+}
+.player-card-social-media__media-container{
+  padding: 0!important;
+}
+.media-container__line{
+  background-color: rgb(199,198,198);
+  height: 1px;
+  width: 100%;
+}
+.player-card-media__media-bar-value{
+  color: rgb(26,43,75)!important;
+  font-family: 'Montserrat', sans-serif!important;
+  font-weight: bold!important;
+  font-size: 17px!important;
+  max-width: 100vw!important;
+}
+.player-card-media__grid-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: hidden;
+  background-color: white;
+}
+.player-card-media__grid-list{
+  /*width: 50vw;*/
+}
+.player-card-media__icon{
+  color: rgba(255, 255, 255, 0.54);
+}
+.media-container-videos-2{
+  overflow-y: hidden;
+  width: 50vw;
+}
+.media-container-videos-3{
+  overflow-y: hidden;
+  width: 20vw;
+}
+.media-container-videos-4{
+  overflow-y: hidden;
+  width: 15vw;
+}
+.media-container-videos-5{
+  overflow-y: hidden;
+  width: 12vw;
+}
+.media-container-videos-6{
+  overflow-y: hidden;
+  width: 10vw;
+}
+.media-container-videos-7{
+  overflow-y: hidden;
+  width: 10vw;
+}
+.media-container-videos-8{
+  overflow-y: hidden;
+  width: 5vw;
+}
+.media-container__image{
+  background-position: center;
+  background-size: cover;
+}
+.MuiSvgIcon-root-101{
+  color: white!important;
+}
+@media only screen and (max-width: 750px) {
+  .player-card-media{
+    margin: 10px 0 0 0!important;
+    width: 100vw;
+  }
+  .player-card-media__media-bar-posts{
+    max-width: 35vw!important
+  }
+}
+@media only screen and (min-width: 1300px) {
+  .player-card-media__media-bar-posts{
+    min-width: 45vw;
+  }
+}
