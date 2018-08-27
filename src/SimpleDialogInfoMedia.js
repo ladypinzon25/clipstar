@@ -1,7 +1,7 @@
 import React from 'react';
 import './SimpleDialogInfoMedia.css';
 import Dialog from '@material-ui/core/Dialog';
-import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class SimpleDialogSigIn extends React.Component {
 
