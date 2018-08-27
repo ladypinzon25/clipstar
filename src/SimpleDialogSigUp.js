@@ -2,6 +2,7 @@ import React from 'react';
 import './SimpleDialogSigUp.css';
 import Dialog from '@material-ui/core/Dialog';
 import {firebaseApp} from "./firebase";
+import User from './api/User';
 
 class SimpleDialogSigIn extends React.Component {
   state = {
@@ -22,6 +23,17 @@ class SimpleDialogSigIn extends React.Component {
   singUp = () => {
     const {email, password} = this.state;
     firebaseApp.auth().createUserWithEmailAndPassword(email, password)
+      .then((user)=> {
+        User.post({
+          name: this.state.nombre,
+          lastName: this.state.apellido,
+          email: this.state.email,
+          country: this.state.pais,
+          city: this.state.ciudad,
+          password: this.state.password,
+          idUser: user.id
+        }, )
+      })
       .catch(error =>{
         console.log("error", error);
       });

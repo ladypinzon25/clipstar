@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import SimpleDialogInfoMedia from './SimpleDialogInfoMedia'
+import User from './api/User';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
@@ -28,6 +28,7 @@ class App extends Component {
     currentUser: null,
     auth: true,
     anchorEl: null,
+    lastSignUpInfo: {}
   };
 
   componentWillMount() {
@@ -51,12 +52,20 @@ class App extends Component {
       if (user) {
         console.log(user);
         this.setState({loggedIn: true, currentUser: user, openSignIn: false, openSignUp: false});
+        this.getUser(user.id);
       }
       else {
         this.setState({loggedIn: false});
       }
     })
   };
+
+  getUser = (id) => {
+    User.get(id, (response) => {
+      console.log(response);
+    })
+  };
+
   logout = () => {
     firebaseApp.auth().signOut()
       .then(() => {
@@ -65,7 +74,8 @@ class App extends Component {
           loggedIn: false
         });
       });
-  }
+  };
+
   handleClickOpenSignIn = () => {
     this.setState({
       openSignIn: true,
@@ -167,6 +177,7 @@ class App extends Component {
             selectedValue={this.state.selectedValue}
             open={this.state.openSignUp}
             onClose={this.handleCloseSignUp}
+            createUser={(data)=> this.setState({lastSignUpInfo: {...data}})}
           />
         </div>
         <Media media={this.state.media} toggleMediaDialog={this.toggleMediaDialog}/>
