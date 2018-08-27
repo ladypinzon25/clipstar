@@ -1,0 +1,66 @@
+.sig-up-dialog  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to top, rgba(19, 41, 75, 0.6), rgba(19, 41, 75, 0.6)), url("/images/photo.jpg");
+  background-position: center;
+  background-size: cover;
+
+}
+
+.log-in-page__inputs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5px 0 5px;
+}
+
+.log-in-page__inputs-container input {
+  outline: none;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 5px 10px 5px;
+  width: 360px;
+}
+
+.log-in-page__line {
+  width: 400px;
+  height: 1px;
+  min-height: 1px;
+  background-color: white;
+}
+
+.log-in-page__icon{
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  margin-right: 15px;
+}
+
+.log-in-page__elements-container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.sign-up-button{
+  background-color: rgb(232,62,83);
+  border-radius: 25px;
+  color: white;
+  border-style: solid;
+  border-color: rgb(232,62,83);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  width: 300px;
+  height: 45px;
+  cursor: pointer;
+  margin: 30px 0 5px 0;
+}
+
+button:focus {outline:0;}

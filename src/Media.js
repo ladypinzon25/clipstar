@@ -8,11 +8,17 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import SimpleDialogInfoMedia from "./SimpleDialogInfoMedia";
 
 class Media extends Component {
   state = {
     value: 0,
-    screenWidth: window.innerWidth
+    screenWidth: window.innerWidth,
+    mediaDialogOpen: false,
+    currentObjectMedia: null
   };
 
   componentDidMount() {
@@ -25,6 +31,11 @@ class Media extends Component {
 
   handleChangeIndex = index => {
     this.setState({value: index});
+  };
+
+  openMediaDialog = (mediaObject) => {
+
+    this.setState({mediaDialogOpen: true, currentObjectMedia: mediaObject});
   };
 
   render() {
@@ -54,6 +65,16 @@ class Media extends Component {
                                 src={tile.fields.url} frameBorder="0"
                                 allow="autoplay; encrypted-media" allowFullScreen
                                 className={screenWidth < 750 ? "media-container-videos-2" : screenWidth < 1360 ? "media-container-videos-3" : ("media-container-videos-" + Math.floor(screenWidth / 350))}/>
+                        <GridListTileBar
+                          title={tile.fields.author}
+                          subtitle={<span>by: user1</span>}
+                          className="info"
+                          actionIcon={
+                            <IconButton className="player-card-media__icon">
+                              <InfoIcon onClick = {() => this.openMediaDialog(tile)}/>
+                            </IconButton>
+                          }
+                        />
                       </GridListTile>
                     ))}
                   </GridList>
@@ -69,6 +90,16 @@ class Media extends Component {
                                 src={tile.fields.url} frameBorder="0"
                                 allow="autoplay; encrypted-media" allowFullScreen
                                 className={screenWidth < 750 ? "media-container-videos-2" : screenWidth < 1360 ? "media-container-videos-3" : ("media-container-videos-" + Math.floor(screenWidth / 350))}/>
+                        <GridListTileBar
+                          title={tile.fields.author}
+                          subtitle={<span>by: user1</span>}
+                          className="info"
+                          actionIcon={
+                            <IconButton className="player-card-media__icon">
+                              <InfoIcon onClick = {() => this.openMediaDialog(tile)}/>
+                            </IconButton>
+                          }
+                        />
                       </GridListTile>
                     ))}
                   </GridList>
@@ -77,6 +108,11 @@ class Media extends Component {
             </SwipeableViews>
           </div>
         </CardContent>
+        <SimpleDialogInfoMedia
+          open={this.state.mediaDialogOpen}
+          onClose={()=> this.setState({mediaDialogOpen: false})}
+          currentMedia = {this.state.currentObjectMedia}
+        />
       </Card>
     );
   }

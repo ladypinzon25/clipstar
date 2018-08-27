@@ -1,0 +1,95 @@
+.log-in-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to top, rgba(19, 41, 75, 0.6), rgba(19, 41, 75, 0.6)), url("/images/photo.jpg");
+  background-position: center;
+  background-size: cover;
+
+}
+
+.log-in-page__inputs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5px 0 5px;
+}
+
+.log-in-page__inputs-container input {
+  outline: none;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 5px 10px 5px;
+  width: 360px;
+}
+
+.log-in-page__line {
+  width: 400px;
+  height: 1px;
+  background-color: white;
+}
+
+.log-in-page__icon{
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  margin-right: 15px;
+}
+
+.log-in-page__elements-container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.log-in-page__forgot-password, .log-in-page__new-account {
+  color: gainsboro;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.log-in-page__container-text-forgot-password{
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  width: 400px;
+}
+
+.log-in-page__container-text-new-account{
+  margin: 40px 0 5px 0;
+  display: flex;
+  justify-content: center;
+  width: 400px;
+}
+
+.sign-in-button{
+  background-color: rgb(232,62,83);
+  border-radius: 25px;
+  color: white;
+  border-style: solid;
+  border-color: rgb(232,62,83);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  width: 300px;
+  height: 45px;
+  cursor: pointer;
+  margin-top: 30px;
+}
+.logo-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+}
+.log-in-page__logo{
+  max-width: 300px;
+  max-height: 150px;
+  margin-top: 30px;
+}
+button:focus {outline:0;}

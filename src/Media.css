@@ -27,6 +27,12 @@
   overflow: hidden;
   background-color: white;
 }
+.player-card-media__icon {
+  color: white!important;
+}
+.info {
+  height: 45px!important;
+}
 .player-card-media__grid-list{
   /*width: 50vw;*/
 }
