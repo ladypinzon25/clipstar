@@ -15,7 +15,7 @@
     "react-swipeable-views": "^0.12.16"
   },
   "scripts": {
-    "deploy": "npm i && npm run build && cd build && http-server",
+    "deploy": "npm run build && cd build && http-server",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
