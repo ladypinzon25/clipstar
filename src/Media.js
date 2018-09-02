@@ -108,11 +108,13 @@ class Media extends Component {
             </SwipeableViews>
           </div>
         </CardContent>
+        {this.state.mediaDialogOpen ?
         <InfoMediaDialog
           open={this.state.mediaDialogOpen}
           onClose={()=> this.setState({mediaDialogOpen: false})}
           currentMedia = {this.state.currentObjectMedia}
-        />
+          currentUser = {this.props.currentUser}
+        />: ""}
       </Card>
     );
   }

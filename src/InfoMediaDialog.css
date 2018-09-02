@@ -28,7 +28,7 @@
 .info-media-dialog__clips-title, .info-media-dialog__title-author,
 .info-media-dialog__add-clip-title {
   text-align: center!important;
-  margin: 5vh 0 5vh 0!important;
+  margin: 10vh 0 5vh 0!important;
 }
 
 .info-media-dialog__description {
@@ -51,17 +51,24 @@
   margin: 5vh 0 5vh 0!important;
 }
 
-.info-media-dialog__text-field-min, .info-media-dialog__text-field-seg {
+.info-media-dialog__text-field-min, .info-media-dialog__text-field-seg{
   width: 10vw;
   margin-right: 2vw!important;
 }
 
+.info-media-dialog__text-field-clip-name {
+  width: 15vw;
+}
 .info-media-dialog__text-field-container {
   width: 50vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.info-media-dialog__name-clip {
+  font-weight: bold!important;
 }
 
 .info-media-dialog__text-field-seg-right {
@@ -73,3 +80,4 @@
   margin: 3vh 0 3vh 0!important;
   font-weight: bold!important;
 }
+

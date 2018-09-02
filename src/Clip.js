@@ -1,44 +1,58 @@
 import React from 'react';
 import './Clip.css';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import PlayIcon from '@material-ui/icons/PlayCircleFilled';
-import Slide from '@material-ui/core/Slide';
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Card from '@material-ui/core/Card';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
 
+import User from './api/User';
 
 class Clip extends React.Component {
 
   state = {
     screenWidth: window.innerWidth,
-    hour: 0,
-    min: 0,
-    seg: 0
+    showClip: false
   };
 
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
+  playClip = () => {
+
+    this.setState({showClip: true});
+    var ctrlq = document.getElementById(this.props.currentMedia.fields.url);
+    var player = new window.YT.Player(this.props.currentMedia.fields.url, {
+      height: ctrlq.dataset.height,
+      width: ctrlq.dataset.width,
+      events: {
+        'onReady': function (e) {
+          e.target.cueVideoById({
+            videoId: ctrlq.dataset.video,
+            startSeconds: ctrlq.dataset.startseconds,
+            endSeconds: ctrlq.dataset.endseconds
+          });
+        }
+      }
     });
   };
 
   render() {
     const {screenWidth} = this.state;
     return (
-      <div className="clip">
-        <div className="clip__container">
-        <div className="clip__bullet clip__margin"/>
-        <div className="clip__title clip__margin">El mejor modo de crear un Endpoint en django</div>
-        <PlayIcon className="clip__play-icon"/>
-        </div>
-        <div className="clip__line"/>
+      <div>
+        {this.props.currentMedia ?
+          <div className="clip">
+            <div className="clip__container">
+              <div className="clip__bullet clip__margin"/>
+              <div className="clip__title clip__margin">{this.props.name}</div>
+              <PlayIcon className="clip__play-icon" onClick={this.playClip}/>
+            </div>
+            <div className="clip__line"/>
+            {this.state.showClip ? <div data-video={this.props.currentMedia.fields.url.split("/")[4]}
+                                        data-startseconds={Number(this.props.startSeg)}
+                                        data-endseconds={Number(this.props.endSeg)}
+                                        data-height="480"
+                                        data-width="640"
+                                        className="info-media-dialog__clip-video"
+                                        id={this.props.currentMedia.fields.url}>
+            </div> : ""}
+          </div> : <CircularProgress/>
+        }
       </div>
     );
   }

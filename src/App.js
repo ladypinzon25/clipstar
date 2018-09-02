@@ -180,7 +180,7 @@ class App extends Component {
             createUser={(data)=> this.setState({lastSignUpInfo: {...data}})}
           />
         </div>
-        <Media media={this.state.media} toggleMediaDialog={this.toggleMediaDialog}/>
+        <Media media={this.state.media} currentUser={this.state.currentUser} toggleMediaDialog={this.toggleMediaDialog}/>
       </div>
     );
   }

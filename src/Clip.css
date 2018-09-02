@@ -30,3 +30,7 @@
   height: 1px;
   background-color: #3f51b5;margin-top: 2vh;
 }
+
+.info-media-dialog__clip-video  {
+  margin: 5vh 0 5vh 0;
+}

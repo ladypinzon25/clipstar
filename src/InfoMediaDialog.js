@@ -13,7 +13,8 @@ import Card from '@material-ui/core/Card';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Clip from './Clip'
-
+import User from './api/User';
+import {firebaseApp} from "./firebase";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -23,15 +24,39 @@ class InfoMediaDialog extends React.Component {
 
   state = {
     screenWidth: window.innerWidth,
-    hour: 0,
-    min: 0,
-    seg: 0
+    showNewClip: false,
+    clipName: "",
+    startHour: 0,
+    startMin: 0,
+    startSeg: 0,
+    endHour: 0,
+    endMin: 0,
+    endSeg: 0,
+    currentClips: {}
+  };
+
+  componentDidMount() {
+    User.getClipsByIdVideo(this.props.currentMedia.pk, (response) => {
+      this.setState({currentClips: response.data});
+      console.log("CLIPS VIDEO: " + response.data)
+    })
   };
 
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
+  };
+
+  addClip = () => {
+    User.postClip({
+      name: this.state.clipName,
+      start: (Number(this.state.startSeg) + Number(this.state.startMin * 60) + Number(this.state.startHour * 60 * 60)),
+      end: (Number(this.state.endSeg) + Number(this.state.endMin * 60) + Number(this.state.endHour * 60 * 60)),
+      idUser: this.props.currentUser.uid,
+      idMedia: this.props.currentMedia.pk,
+    })
+
   };
 
   render() {
@@ -68,10 +93,23 @@ class InfoMediaDialog extends React.Component {
                             className="info-media-dialog__country-city">{this.props.currentMedia.fields.country} - {this.props.currentMedia.fields.city}</Typography>
                 <Typography variant="display1" color="inherit"
                             className="info-media-dialog__clips-title">Clips</Typography>
-                <Clip/>
+                {this.state.currentClips.map((actual, i) => (
+                  <Clip clipName={actual.fields.name} currentMedia={this.props.currentMedia}
+                        startSeg={actual.fields.seg_initial} endSeg={actual.fields.seg_final} key={actual + i} />))}
+
                 <Typography variant="headline" color="inherit"
                             className="info-media-dialog__add-clip-title">Agrega un clip</Typography>
                 <div className="info-media-dialog__text-field-container">
+                  <Typography variant="body1" color="inherit"
+                              className="info-media-dialog__name-clip">Nombre del clip</Typography>
+                  <TextField
+                    id="name"
+                    label="Name"
+                    className="info-media-dialog__text-field-clip-name"
+                    value={this.state.name}
+                    onChange={this.handleChange('name')}
+                    margin="normal"
+                  />
                   <Typography variant="body1" color="inherit"
                               className="info-media-dialog__start-hour-clip">Tiempo de inicio del clip</Typography>
                   <div>
@@ -79,7 +117,7 @@ class InfoMediaDialog extends React.Component {
                       id="number"
                       label="Horas"
                       value={this.state.hour}
-                      onChange={this.handleChange('hour')}
+                      onChange={this.handleChange('startHour')}
                       type="number"
                       className="info-media-dialog__text-field-min"
                       InputLabelProps={{
@@ -91,7 +129,7 @@ class InfoMediaDialog extends React.Component {
                       id="number"
                       label="Minutos"
                       value={this.state.min}
-                      onChange={this.handleChange('min')}
+                      onChange={this.handleChange('startMin')}
                       type="number"
                       className="info-media-dialog__text-field-min"
                       InputLabelProps={{
@@ -103,7 +141,7 @@ class InfoMediaDialog extends React.Component {
                       id="number"
                       label="Segundos"
                       value={this.state.seg}
-                      onChange={this.handleChange('seg')}
+                      onChange={this.handleChange('startSeg')}
                       type="number"
                       className="info-media-dialog__text-field-seg-right"
                       InputLabelProps={{
@@ -112,14 +150,14 @@ class InfoMediaDialog extends React.Component {
                       margin="normal"
                     />
                   </div>
-                    <Typography variant="body1" color="inherit"
-                                className="info-media-dialog__start-hour-clip">Tiempo de fin del clip</Typography>
+                  <Typography variant="body1" color="inherit"
+                              className="info-media-dialog__start-hour-clip">Tiempo de fin del clip</Typography>
                   <div>
-                  <TextField
+                    <TextField
                       id="number"
                       label="Horas"
                       value={this.state.hour}
-                      onChange={this.handleChange('hour')}
+                      onChange={this.handleChange('endHour')}
                       type="number"
                       className="info-media-dialog__text-field-min"
                       InputLabelProps={{
@@ -131,7 +169,7 @@ class InfoMediaDialog extends React.Component {
                       id="number"
                       label="Minutos"
                       value={this.state.min}
-                      onChange={this.handleChange('min')}
+                      onChange={this.handleChange('endMin')}
                       type="number"
                       className="info-media-dialog__text-field-min"
                       InputLabelProps={{
@@ -143,7 +181,7 @@ class InfoMediaDialog extends React.Component {
                       id="number"
                       label="Segundos"
                       value={this.state.seg}
-                      onChange={this.handleChange('seg')}
+                      onChange={this.handleChange('endSeg')}
                       type="number"
                       className="info-media-dialog__text-field-seg-right"
                       InputLabelProps={{
@@ -154,7 +192,7 @@ class InfoMediaDialog extends React.Component {
                   </div>
                 </div>
                 <div className="Info-media-dialog__add-clip-button-container">
-                  <Button className="Info-media-dialog__add-clip-button">
+                  <Button className="Info-media-dialog__add-clip-button" onClick={this.addClip}>
                     <Typography variant="body1" color="inherit"
                                 className="info-media-dialog__add-clip-title-button">Agregar clip</Typography>
                   </Button>
