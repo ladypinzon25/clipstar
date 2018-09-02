@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import SimpleDialogSignIn from './SimpleDialogSigIn';
 import SimpleDialogSignUp from './SimpleDialogSigUp';
+import EditUserFormDialog from './EditUserFormDialog';
 import {firebaseApp} from "./firebase";
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,6 +23,7 @@ class App extends Component {
     media: [],
     openSignIn: false,
     openSignUp: false,
+    openEditUserForm: false,
     openMediaDialog: false,
     selectedValue: emails[1],
     loggedIn: false,
@@ -113,6 +115,16 @@ class App extends Component {
       })
   }
 
+  handleClickOpenEditUserForm = () => {
+    this.setState({
+      openEditUserForm: true,
+    });
+  };
+  handleClickCloseEditUserForm = value => {
+    this.setState({
+      openEditUserForm: false, 
+    });
+  };
   render() {
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
@@ -156,10 +168,16 @@ class App extends Component {
                       open={open}
                       onClose={this.handleClose}
                     >
-                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={this.handleClickOpenEditUserForm}>Profile</MenuItem>
                       <MenuItem onClick={this.handleClose}>Sign out</MenuItem>
                     </Menu>
                   </div>
+                  <div>
+                  <EditUserFormDialog
+                  open={this.state.openEditUserForm}
+                  onClose={()=> this.setState({openEditUserForm: false})}
+                  currentIdUser={this.state.currentUser.uid}/>
+        </div>
                 </div>
               }
             </Toolbar>
