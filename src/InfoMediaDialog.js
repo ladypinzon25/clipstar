@@ -108,7 +108,7 @@ class InfoMediaDialog extends React.Component {
                     label="Name"
                     className="info-media-dialog__text-field-clip-name"
                     value={this.state.clipName}
-                    onChange={this.handleChange('name')}
+                    onChange={this.handleChange('clipName')}
                     margin="normal"
                   />
                   <Typography variant="body1" color="inherit"
