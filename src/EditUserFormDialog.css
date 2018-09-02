@@ -1,0 +1,14 @@
+.header-dialog-appBar {
+    position: relative; 
+  }
+
+  .header-dialog-flex {
+    flex: 1;
+  }
+
+  .content-dialog__container {
+    width: 80vw;
+    position: absolute;
+    top: 15vh;
+    left: 10vw;
+  }
