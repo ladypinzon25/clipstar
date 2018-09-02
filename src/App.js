@@ -52,7 +52,7 @@ class App extends Component {
       if (user) {
         console.log(user);
         this.setState({loggedIn: true, currentUser: user, openSignIn: false, openSignUp: false});
-        this.getUser(user.id);
+        this.getUser(user.uid);
       }
       else {
         this.setState({loggedIn: false});

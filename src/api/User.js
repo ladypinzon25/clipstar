@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const baseURL = "https://agile-gallery.herokuapp.com/api/v1/gallery";
+const baseURL = "http://localhost:8000/api/v1/gallery";
 
 const post = (data, onComplete, onError) => {
   const url = baseURL + "/create/";
-
+  console.log(data);
   axios.post(url, {
     ...data
   })
@@ -13,11 +13,11 @@ const post = (data, onComplete, onError) => {
 };
 
 const get = (id, onComplete, onError) => {
-  const url = baseURL + "/user/" + id;
+  const url = baseURL + "/user/" + id + "/";
 
   axios.get(url)
-    .then(onComplete? onComplete : (response) => console.log(response))
-    .catch(onError? onError : (error) => console.log(error));
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
 };
 
 const User = {

@@ -11,7 +11,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import SimpleDialogInfoMedia from "./SimpleDialogInfoMedia";
+import InfoMediaDialog from "./InfoMediaDialog";
 
 class Media extends Component {
   state = {
@@ -108,7 +108,7 @@ class Media extends Component {
             </SwipeableViews>
           </div>
         </CardContent>
-        <SimpleDialogInfoMedia
+        <InfoMediaDialog
           open={this.state.mediaDialogOpen}
           onClose={()=> this.setState({mediaDialogOpen: false})}
           currentMedia = {this.state.currentObjectMedia}

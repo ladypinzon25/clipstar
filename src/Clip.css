@@ -1,0 +1,32 @@
+.clip__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clip__bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #3f51b5;
+}
+
+.clip__play-icon {
+  color: #3f51b5;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 19px -1px rgba(0,0,0,0.75)!important;
+  -moz-box-shadow: 0 0 19px -1px rgba(0,0,0,0.75)!important;
+  box-shadow: 0 0 19px -1px rgba(0,0,0,0.75)!important;
+}
+
+.clip__margin {
+  margin-right: 3vw;
+}
+
+.clip__line {
+  height: 1px;
+  background-color: #3f51b5;margin-top: 2vh;
+}

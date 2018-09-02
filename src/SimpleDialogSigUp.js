@@ -23,7 +23,7 @@ class SimpleDialogSigIn extends React.Component {
   singUp = () => {
     const {email, password} = this.state;
     firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-      .then((user)=> {
+      .then((reponse)=> {
         User.post({
           name: this.state.nombre,
           lastName: this.state.apellido,
@@ -31,8 +31,8 @@ class SimpleDialogSigIn extends React.Component {
           country: this.state.pais,
           city: this.state.ciudad,
           password: this.state.password,
-          idUser: user.id
-        }, )
+          idUser: reponse.user.uid
+        })
       })
       .catch(error =>{
         console.log("error", error);
