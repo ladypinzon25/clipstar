@@ -32,11 +32,12 @@ class InfoMediaDialog extends React.Component {
     endHour: 0,
     endMin: 0,
     endSeg: 0,
-    currentClips: {}
+    currentClips:[]
   };
 
   componentDidMount() {
     User.getClipsByIdVideo(this.props.currentMedia.pk, (response) => {
+      debugger;
       this.setState({currentClips: response.data});
       console.log("CLIPS VIDEO: " + response.data)
     })
@@ -63,7 +64,7 @@ class InfoMediaDialog extends React.Component {
     const {screenWidth} = this.state;
     return (
       <div>
-        {this.props.currentMedia ?
+        {this.props.currentMedia && this.state.currentClips.length > 0 ?
           <Dialog
             fullScreen
             open={this.props.open} onClose={this.props.onClose}

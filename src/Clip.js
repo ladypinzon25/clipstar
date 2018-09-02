@@ -15,20 +15,23 @@ class Clip extends React.Component {
   playClip = () => {
 
     this.setState({showClip: true});
-    var ctrlq = document.getElementById(this.props.currentMedia.fields.url);
-    var player = new window.YT.Player(this.props.currentMedia.fields.url, {
-      height: ctrlq.dataset.height,
-      width: ctrlq.dataset.width,
-      events: {
-        'onReady': function (e) {
-          e.target.cueVideoById({
-            videoId: ctrlq.dataset.video,
-            startSeconds: ctrlq.dataset.startseconds,
-            endSeconds: ctrlq.dataset.endseconds
-          });
+    setTimeout(()=> {
+      var ctrlq = document.getElementById(this.props.currentMedia.fields.url);
+      var player = new window.YT.Player(this.props.currentMedia.fields.url, {
+        height: ctrlq.dataset.height,
+        width: ctrlq.dataset.width,
+        events: {
+          'onReady': function (e) {
+            e.target.cueVideoById({
+              videoId: ctrlq.dataset.video,
+              startSeconds: ctrlq.dataset.startseconds,
+              endSeconds: ctrlq.dataset.endseconds
+            });
+          }
         }
-      }
-    });
+      });
+    })
+
   };
 
   render() {
@@ -39,7 +42,7 @@ class Clip extends React.Component {
           <div className="clip">
             <div className="clip__container">
               <div className="clip__bullet clip__margin"/>
-              <div className="clip__title clip__margin">{this.props.name}</div>
+              <div className="clip__title clip__margin">{this.props.clipName}</div>
               <PlayIcon className="clip__play-icon" onClick={this.playClip}/>
             </div>
             <div className="clip__line"/>
