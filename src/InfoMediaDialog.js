@@ -37,7 +37,6 @@ class InfoMediaDialog extends React.Component {
 
   componentDidMount() {
     User.getClipsByIdVideo(this.props.currentMedia.pk, (response) => {
-      debugger;
       this.setState({currentClips: response.data});
       console.log("CLIPS VIDEO: " + response.data)
     })

@@ -27,6 +27,10 @@
   overflow: hidden;
   background-color: white;
 }
+.player-card-social-media__categories-selector {
+  display: flex;
+  justify-content: center;
+}
 .player-card-media__icon {
   color: white!important;
 }

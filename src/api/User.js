@@ -4,7 +4,6 @@ const baseURL = "http://agile-gallery.herokuapp.com/api/v1/gallery";
 
 const post = (data, onComplete, onError) => {
   const url = baseURL + "/create/";
-  console.log(data);
   axios.post(url, {
     ...data
   })
