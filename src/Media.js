@@ -12,10 +12,10 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import InfoMediaDialog from "./InfoMediaDialog";
-import Typography from "@material-ui/core/es/Typography/Typography";
-import FormGroup from "@material-ui/core/es/FormGroup/FormGroup";
-import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
-import Checkbox from "@material-ui/core/es/Checkbox/Checkbox";
+import Typography from "@material-ui/core/Typography/Typography";
+import FormGroup from "@material-ui/core/FormGroup/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import Category from "./api/Category";
 
 class Media extends Component {
