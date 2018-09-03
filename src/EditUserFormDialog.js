@@ -47,20 +47,15 @@ state = {
 
   getUser = (id) => {
   User.get(id, (response) => {
-    console.log('=====userEdit=====');
-    console.log(response);
-    console.log(response.data[0]);
-  this.setState(() => ({ userEdit : response.data[0].fields}))
-  this.setState({ 
-    nombre:this.state.userEdit.name,
-    apellido:this.state.userEdit.lastName,
-    email:this.state.userEdit.email,
-    pais:this.state.userEdit.country,
-    ciudad:this.state.userEdit.city,
-    password:this.state.userEdit.password
-  });
-  console.log('userEdit====='+this.state.userEdit.name);
-
+  // this.setState(() => ({ userEdit : response.data[0].fields}))
+  // this.setState({
+  //   nombre:this.state.userEdit.name,
+  //   apellido:this.state.userEdit.lastName,
+  //   email:this.state.userEdit.email,
+  //   pais:this.state.userEdit.country,
+  //   ciudad:this.state.userEdit.city,
+  //   password:this.state.userEdit.password
+  // });
     });
 /*
 const url = 'https://jsonplaceholder.typicode.com/users/1';
