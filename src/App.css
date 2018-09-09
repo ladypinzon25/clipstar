@@ -44,7 +44,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 75vw;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
 }
 .logo-bar {
   height: 70px;

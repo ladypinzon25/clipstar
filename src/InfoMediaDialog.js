@@ -10,11 +10,10 @@ import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Card from '@material-ui/core/Card';
-import MenuItem from '@material-ui/core/MenuItem';
+import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Clip from './Clip'
 import User from './api/User';
-import {firebaseApp} from "./firebase";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -32,13 +31,14 @@ class InfoMediaDialog extends React.Component {
     endHour: 0,
     endMin: 0,
     endSeg: 0,
-    currentClips:[]
+    currentClips:[],
+    loading: true,
+    isSnackBarOpen: false
   };
 
   componentDidMount() {
     User.getClipsByIdVideo(this.props.currentMedia.pk, (response) => {
-      this.setState({currentClips: response.data});
-      console.log("CLIPS VIDEO: " + response.data)
+      this.setState({currentClips: response.data, loading: false});
     })
   };
 
@@ -53,17 +53,20 @@ class InfoMediaDialog extends React.Component {
       name: this.state.clipName,
       start: (Number(this.state.startSeg) + Number(this.state.startMin * 60) + Number(this.state.startHour * 60 * 60)),
       end: (Number(this.state.endSeg) + Number(this.state.endMin * 60) + Number(this.state.endHour * 60 * 60)),
-      idUser: this.props.currentUser.uid,
+      idUser: this.props.currentUser.login,
       idMedia: this.props.currentMedia.pk,
     })
 
   };
 
+  toogleSnackBar = (newState) => {
+    this.setState({isSnackBarOpen: newState});
+  };
+
   render() {
-    const {screenWidth} = this.state;
     return (
       <div>
-        {this.props.currentMedia && this.state.currentClips.length > 0 ?
+        {this.props.currentMedia && !this.state.loading ?
           <Dialog
             fullScreen
             open={this.props.open} onClose={this.props.onClose}
@@ -191,10 +194,9 @@ class InfoMediaDialog extends React.Component {
                     />
                   </div>
                 </div>
-                <div className="Info-media-dialog__add-clip-button-container">
-                  <Button className="Info-media-dialog__add-clip-button" onClick={this.addClip}>
-                    <Typography variant="body1" color="inherit"
-                                className="info-media-dialog__add-clip-title-button">Agregar clip</Typography>
+                <div className="Info-media-dialog__add-clip-button-container" onMouseEnter={() => {if (!this.props.currentUser) {this.toogleSnackBar(true)}}}>
+                  <Button variant="contained" color="primary" disabled={!this.props.currentUser} onClick={this.addClip}>
+                    Agregar clip
                   </Button>
                 </div>
               </div>
@@ -202,6 +204,16 @@ class InfoMediaDialog extends React.Component {
           </Dialog> :
           <CircularProgress/>
         }
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.isSnackBarOpen}
+          autoHideDuration={4000}
+          onClose={()=>this.toogleSnackBar(false)}
+          message={<span id="message-id">Debes haber iniciado sesión para realizar esta acción</span>}
+        />
       </div>
     );
   }

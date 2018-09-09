@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Lock from '@material-ui/icons/LockOutline';
 import Identity from '@material-ui/icons/PermIdentity';
-import {firebaseApp} from "./firebase";
+import User from './api/User';
 import './LogInPage.css';
 
 class LogInPage extends Component {
@@ -13,17 +13,11 @@ class LogInPage extends Component {
   singIn = () => {
     const {email, password} = this.state;
 
-    firebaseApp.auth().signInWithEmailAndPassword(email, password)
-      .then(this.onSignInSuccess)
-      .catch(this.onSignInFailed)
-  };
-
-  onSignInSuccess = () => {
-    this.setState({email: '', password: ''})
-  };
-
-  onSignInFailed = (error) => {
-    console.log(error);
+    User.signIn({login:email, password}, (response)=>{
+      const user = response.data[0].fields;
+      this.props.changeUser(user);
+      this.setState({email: '', password: ''});
+    });
   };
 
   render() {

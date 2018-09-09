@@ -29,6 +29,16 @@ const get = (id, onComplete, onError) => {
     .catch(onError ? onError : (error) => console.log(error));
 };
 
+const signIn = (data, onComplete, onError) => {
+  const url = baseURL + "/login/";
+
+  axios.post(url, {
+    ...data
+  })
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
+};
+
 const getClipsByIdVideo = (id, onComplete, onError) => {
   const url = baseURL + "/media/" + id + "/clips/";
 
@@ -41,7 +51,8 @@ const User = {
   post,
   get,
   postClip,
-  getClipsByIdVideo
+  getClipsByIdVideo,
+  signIn
 };
 
 export default User;

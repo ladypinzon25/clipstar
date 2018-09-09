@@ -7,8 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import SimpleDialogSignIn from './SimpleDialogSigIn';
 import SimpleDialogSignUp from './SimpleDialogSigUp';
-import EditUserFormDialog from './EditUserFormDialog';
-import {firebaseApp} from "./firebase";
+// import EditUserFormDialog from './EditUserFormDialog';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -23,7 +22,7 @@ class App extends Component {
     media: [],
     openSignIn: false,
     openSignUp: false,
-    openEditUserForm: false,
+    // openEditUserForm: false,
     openMediaDialog: false,
     selectedValue: emails[1],
     loggedIn: false,
@@ -33,9 +32,6 @@ class App extends Component {
     lastSignUpInfo: {}
   };
 
-  componentWillMount() {
-    this.auth();
-  }
   handleChange = (event, checked) => {
     this.setState({ auth: checked });
   };
@@ -49,38 +45,26 @@ class App extends Component {
     this.logout();
   };
 
-  auth = () => {
-    firebaseApp.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({loggedIn: true, currentUser: user, openSignIn: false, openSignUp: false});
-        this.getUser(user.uid);
-      }
-      else {
-        this.setState({loggedIn: false});
-      }
+  getUser = (id) => {
+    User.get(id, (response) => {
+      const user = response.data[0].fields;
+      this.changeUser(user)
     })
   };
 
-  getUser = (id) => {
-    User.get(id, (response) => {
-      console.log(response);
-    })
+  changeUser = (newUser) => {
+    this.setState({loggedIn: true, currentUser: newUser, openSignIn: false, openSignUp: false});
   };
 
   logout = () => {
-    firebaseApp.auth().signOut()
-      .then(() => {
-        this.setState({
-          currentUser: null,
-          loggedIn: false
-        });
-      });
+    this.setState({
+      currentUser: null,
+      loggedIn: false
+    });
   };
 
   handleClickOpenSignIn = () => {
-    this.setState({
-      openSignIn: true,
-    });
+    this.setState({openSignIn: true});
   };
 
   handleCloseSignIn = value => {
@@ -92,9 +76,7 @@ class App extends Component {
   };
 
   handleClickOpenSignUp = () => {
-    this.setState({
-      openSignUp: true,
-    });
+    this.setState({openSignUp: true,});
   };
 
   handleCloseSignUp = value => {
@@ -114,16 +96,16 @@ class App extends Component {
       })
   }
 
-  handleClickOpenEditUserForm = () => {
-    this.setState({
-      openEditUserForm: true,
-    });
-  };
-  handleClickCloseEditUserForm = value => {
-    this.setState({
-      openEditUserForm: false, 
-    });
-  };
+  // handleClickOpenEditUserForm = () => {
+  //   this.setState({
+  //     openEditUserForm: true,
+  //   });
+  // };
+  // handleClickCloseEditUserForm = value => {
+  //   this.setState({
+  //     openEditUserForm: false,
+  //   });
+  // };
   render() {
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
@@ -167,15 +149,9 @@ class App extends Component {
                       open={open}
                       onClose={this.handleClose}
                     >
-                      <MenuItem onClick={this.handleClickOpenEditUserForm}>Profile</MenuItem>
+                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                       <MenuItem onClick={this.handleClose}>Sign out</MenuItem>
                     </Menu>
-                  </div>
-                  <div>
-                  <EditUserFormDialog
-                  open={this.state.openEditUserForm}
-                  onClose={()=> this.setState({openEditUserForm: false})}
-                  currentIdUser={this.state.currentUser.uid}/>
         </div>
                 </div>
               }
@@ -187,6 +163,7 @@ class App extends Component {
             selectedValue={this.state.selectedValue}
             open={this.state.openSignIn}
             onClose={this.handleCloseSignIn}
+            changeUser={this.changeUser}
           />
         </div>
         <div>
@@ -195,6 +172,7 @@ class App extends Component {
             open={this.state.openSignUp}
             onClose={this.handleCloseSignUp}
             createUser={(data)=> this.setState({lastSignUpInfo: {...data}})}
+            getUser={this.getUser}
           />
         </div>
         <Media media={this.state.media} currentUser={this.state.currentUser} toggleMediaDialog={this.toggleMediaDialog}/>

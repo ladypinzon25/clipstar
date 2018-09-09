@@ -1,7 +1,6 @@
 import React from 'react';
 import './SimpleDialogSigUp.css';
 import Dialog from '@material-ui/core/Dialog';
-import {firebaseApp} from "./firebase";
 import User from './api/User';
 
 class SimpleDialogSigIn extends React.Component {
@@ -11,7 +10,8 @@ class SimpleDialogSigIn extends React.Component {
     email: "",
     pais: "",
     ciudad: "",
-    password: ""
+    password: "",
+    username: ""
   };
   handleClose = () => {
     this.props.onClose(this.props.selectedValue);
@@ -21,22 +21,30 @@ class SimpleDialogSigIn extends React.Component {
     this.props.onClose(value);
   };
   singUp = () => {
-    const {email, password} = this.state;
-    firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-      .then((reponse)=> {
-        User.post({
-          name: this.state.nombre,
-          lastName: this.state.apellido,
-          email: this.state.email,
-          country: this.state.pais,
-          city: this.state.ciudad,
-          password: this.state.password,
-          idUser: reponse.user.uid
-        })
-      })
-      .catch(error =>{
-        console.log("error", error);
+    const user = {
+      name: this.state.nombre,
+      lastName: this.state.apellido,
+      email: this.state.email,
+      country: this.state.pais,
+      city: this.state.ciudad,
+      login: this.state.username,
+      password: this.state.password,
+      idUser: this.state.username,
+      image: null
+    };
+
+    User.post(user, (response) => {
+      this.props.getUser(this.state.username);
+      this.setState({
+        nombre: "",
+        apellido: "",
+        email: "",
+        pais: "",
+        ciudad: "",
+        password: "",
+        username: ""
       });
+    })
   };
 
   render() {
@@ -72,6 +80,11 @@ class SimpleDialogSigIn extends React.Component {
             <div className="log-in-page__elements-container">
               <input type="text" placeholder="Ciudad" value={this.state.ciudad}
                      onChange={event => this.setState({ciudad: event.target.value})}/>
+            </div>
+            <div className="log-in-page__line"/>
+            <div className="log-in-page__elements-container">
+              <input type="text" placeholder="Username" value={this.state.username}
+                     onChange={event => this.setState({username: event.target.value})}/>
             </div>
             <div className="log-in-page__line"/>
             <div className="log-in-page__elements-container">

@@ -35,20 +35,14 @@
   margin-bottom: 3vh!important;
 }
 
-.Info-media-dialog__add-clip-button {
-  background-color: #3f51b5!important;
-  color: white!important;
-  font-weight: 400!important;
-}
-
 .info-media-dialog__add-clip-title-button {
   margin: 0!important;
 }
 
 .Info-media-dialog__add-clip-button-container {
-  width: 50vw;
+  width: fit-content;
   text-align: center!important;
-  margin: 5vh 0 5vh 0!important;
+  margin: 5vh auto!important;
 }
 
 .info-media-dialog__text-field-min, .info-media-dialog__text-field-seg{

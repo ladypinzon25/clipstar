@@ -19,7 +19,7 @@ class SimpleDialogSigIn extends React.Component {
     return (
       <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other} className="sig-in-dialog">
         <div className="sig-in-dialog">
-          <LogInPage/>
+          <LogInPage changeUser={this.props.changeUser}/>
         </div>
       </Dialog>
     );
